@@ -1,7 +1,8 @@
-Password Generator using React
+# Password Generator using React
+
 Currently I am learning a very popular JavaScript Library React.js and in the process of learning i have build a modern, responsive password generator app (simply)design with React + Tailwind CSS. Customize the password length, include numbers and special characters, and copy your strong password to the clipboard in one click.
 
-✨ Features
+## ✨ Features
 -> Adjustable password length (5–50 characters)
 
 -> Include/exclude numbers and special characters
@@ -13,25 +14,25 @@ Currently I am learning a very popular JavaScript Library React.js and in the pr
 -> Built with React Hooks (useState, useEffect, useCallback, useRef)
 
 
-Technologies Used
+## Technologies Used
 -> React
 
 -> Tailwind CSS
 
 -> Vite
 
-How to Run Locally
+## How to Run Locally
 
-# 1. Clone the repository
+### 1. Clone the repository
 git clone https://github.com/omPrakash61/Password-Generator.git
 
-# 2. Go into the project folder
+### 2. Go into the project folder
 cd Password-Generator
 
-# 3. Install dependencies
+### 3. Install dependencies
 npm install
 
-# 4. Start the development server
+### 4. Start the development server
 npm run dev
 
 🤝 Contribution
