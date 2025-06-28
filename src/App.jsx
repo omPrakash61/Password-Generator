@@ -32,8 +32,8 @@ function App() {
   };
 
   return (
-    <div className="bg-gray-900 text-white flex items-center justify-center">
-      <div className="w-full max-w-md bg-gray-800 rounded-xl p-6 shadow-lg">
+    <div className="bg-blue-950 text-white flex items-center rounded-xl justify-center">
+      <div className="w-full max-w-md bg-blue-950 rounded-xl p-6 shadow-lg">
         <h1 className="text-center text-blue-300 mb-6">Password Generator</h1>
 
         <div className="flex items-center">
@@ -54,7 +54,7 @@ function App() {
 
         <div className="mt-6 flex flex-col gap-4">
           <div className="flex items-center justify-between">
-            <label htmlFor="length" className="text-lg">Password Length: {length}</label>
+            <label htmlFor="length" className="text-lg text-amber-500">Password Length: {length}</label>
             <input
               id="length"
               type="range"
@@ -74,7 +74,7 @@ function App() {
               onChange={() => setIsNumber((prev) => !prev)}
               className="accent-blue-500"
             />
-            <label htmlFor="include-numbers">Include Numbers</label>
+            <label className='text-amber-500' htmlFor="include-numbers">Include Numbers</label>
           </div>
 
           <div className="flex items-center gap-2">
@@ -85,7 +85,7 @@ function App() {
               onChange={() => setIsSpecialChar((prev) => !prev)}
               className="accent-blue-500"
             />
-            <label htmlFor="include-special">Include Special Characters</label>
+            <label className='text-amber-500' htmlFor="include-special">Include Special Characters</label>
           </div>
         </div>
       </div>
