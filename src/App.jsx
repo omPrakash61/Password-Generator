@@ -1,72 +1,96 @@
-import { useCallback, useEffect, useState, useRef} from 'react'
-import './App.css'
+import { useCallback, useEffect, useState, useRef } from 'react';
+import './App.css';
 
 function App() {
-  let [length, setLength] = useState(10)
-
-  let [password, setPassword] = useState("")
-
-  let [isNumber, setIsNumber] = useState(false)
-
-  let [isSpecialChar, setIsSpecialChar] = useState(false)
+  const [length, setLength] = useState(10);
+  const [password, setPassword] = useState('');
+  const [isNumber, setIsNumber] = useState(false);
+  const [isSpecialChar, setIsSpecialChar] = useState(false);
+  const inputRef = useRef(null);
 
   const generatePassword = useCallback(() => {
-    let allChar = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
+    let allChar = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz';
+    if (isNumber) allChar += '0123456789';
+    if (isSpecialChar) allChar += '!@#$%^&*()_+[]{}|';
 
-    if(isNumber){
-      allChar += "0123456789";
+    let pass = '';
+    for (let i = 0; i < length; i++) {
+      const idx = Math.floor(Math.random() * allChar.length);
+      pass += allChar.charAt(idx);
     }
-    if(isSpecialChar){
-      allChar += "!@#$%^&*()_+[]{}|";
-    }
-    
-    let pass = ""
-    
-    for(let i=0; i<length; i++){
-      const idx = Math.floor(Math.random()*allChar.length) + 1
-      let ch = allChar.charAt(idx);
-      pass += ch;
-    }
-    
+
     setPassword(pass);
-    
-
-  }, [length, password, isNumber, isSpecialChar]);
+  }, [length, isNumber, isSpecialChar]);
 
   useEffect(() => {
     generatePassword();
-  }, [ length, isNumber, isSpecialChar])
+  }, [length, isNumber, isSpecialChar]);
 
-  const inputRef = useRef(null)
-  
-  function copyToClipBoard(){
+  const copyToClipBoard = () => {
     window.navigator.clipboard.writeText(password);
-    inputRef.current?.select()
-  }
+    inputRef.current?.select();
+  };
 
   return (
-    <>
-      <div className='w-170 h-55 rounded-md bg-blue-950 pt-4.5'>
-        <div className=''>
-          <p className='text-3xl text-amber-300'>Password Generator</p>
-        </div>
-        <div className='flex justify-center'>
-          <input value={password} ref={inputRef} type="text" className='mt-6 h-11.5 text-gray-900 p-3  bg-gray-200 w-80 rounded-l-2xl' readOnly />
-          <button onClick={copyToClipBoard} id="copy" className='mt-6 rounded-r-2xl'>Copy</button>
-        </div>
-        <div className='gap-2 flex justify-center mt-4 text-amber-400'>
-          <input onChange={(e) => setLength(e.target.value)} value={length} type="range" min={5} max={50} className='cursor-pointer h-5 w-30 bg-gray-100 ' placeholder='Length' />
-          <label htmlFor="range">Length : {length}</label>
+    <div className="bg-gray-900 text-white flex items-center justify-center">
+      <div className="w-full max-w-md bg-gray-800 rounded-xl p-6 shadow-lg">
+        <h1 className="text-center text-blue-300 mb-6">Password Generator</h1>
 
-          <input type="checkbox" id="isNumber" onChange={() => setIsNumber((prev) => !prev)}  name="number" />
-          <label htmlFor="number">Number</label>
+        <div className="flex items-center">
+          <input
+            type="text"
+            value={password}
+            ref={inputRef}
+            readOnly
+            className="w-full p-3 rounded-l-lg text-gray-900 bg-gray-100 focus:outline-none"
+          />
+          <button
+            onClick={copyToClipBoard}
+            className="px-4 py-3 bg-blue-500 hover:bg-blue-600 text-white font-semibold rounded-r-lg transition"
+          >
+            Copy
+          </button>
+        </div>
 
-          <input type="checkbox" id="isSpecialChar" onChange={() => setIsSpecialChar((prev) => !prev)} name="specialChar" />
-          <label htmlFor="specialChar">Special Characters</label>
+        <div className="mt-6 flex flex-col gap-4">
+          <div className="flex items-center justify-between">
+            <label htmlFor="length" className="text-lg">Password Length: {length}</label>
+            <input
+              id="length"
+              type="range"
+              min={5}
+              max={50}
+              value={length}
+              onChange={(e) => setLength(Number(e.target.value))}
+              className="w-1/2 accent-blue-500"
+            />
+          </div>
+
+          <div className="flex items-center gap-2">
+            <input
+              type="checkbox"
+              id="include-numbers"
+              checked={isNumber}
+              onChange={() => setIsNumber((prev) => !prev)}
+              className="accent-blue-500"
+            />
+            <label htmlFor="include-numbers">Include Numbers</label>
+          </div>
+
+          <div className="flex items-center gap-2">
+            <input
+              type="checkbox"
+              id="include-special"
+              checked={isSpecialChar}
+              onChange={() => setIsSpecialChar((prev) => !prev)}
+              className="accent-blue-500"
+            />
+            <label htmlFor="include-special">Include Special Characters</label>
+          </div>
         </div>
       </div>
-    </>
-  )
+    </div>
+  );
 }
 
-export default App
+export default App;
